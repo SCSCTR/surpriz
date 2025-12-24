@@ -1,0 +1,318 @@
+<!doctype html>
+<html lang="tr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>BEKLİYORUZ 💖</title>
+
+  <!-- WhatsApp Önizleme Kartı (Open Graph) -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="BEKLİYORUZ 💖">
+  <meta property="og:description" content="10 saniye… Sonunda sürpriz var ✨">
+  <!-- GitHub Pages/Netlify'da bu dosya aynı klasörde olduğu için çalışır -->
+  <meta property="og:image" content="./preview.jpg">
+  <meta property="og:url" content="./">
+  <meta property="og:site_name" content="Sürpriz">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <style>
+    :root{
+      --glass: rgba(255,255,255,.14);
+      --border: rgba(255,255,255,.22);
+      --text: rgba(255,255,255,.95);
+      --muted: rgba(255,255,255,.78);
+      --shadow: 0 22px 90px rgba(0,0,0,.55);
+    }
+    html,body{height:100%;margin:0}
+    body{font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;overflow:hidden;color:var(--text);background:#070014}
+
+    .bg{
+      position:fixed; inset:0;
+      background:
+        radial-gradient(1200px 900px at 20% 25%, rgba(255,0,168,.22), rgba(0,0,0,0)),
+        radial-gradient(900px 700px at 80% 30%, rgba(0,255,214,.18), rgba(0,0,0,0)),
+        radial-gradient(900px 900px at 50% 85%, rgba(255,210,0,.18), rgba(0,0,0,0)),
+        linear-gradient(180deg, rgba(0,0,0,.18), rgba(0,0,0,.72));
+      background-size:cover;
+      background-position:center;
+      transform:scale(1.06);
+      filter:saturate(1.25) contrast(1.10) brightness(1.02);
+    }
+    .bg.finale{ animation: finale 950ms ease-in-out infinite; }
+    @keyframes finale{
+      0%{ filter: saturate(1.2) contrast(1.1) brightness(1.0); }
+      50%{ filter: saturate(1.6) contrast(1.2) brightness(1.12); }
+      100%{ filter: saturate(1.2) contrast(1.1) brightness(1.0); }
+    }
+
+    .hearts{position:fixed; inset:0; pointer-events:none; overflow:hidden;}
+    .heart{position:absolute; font-size:22px; opacity:0; animation: floatUp linear forwards; filter: drop-shadow(0 10px 18px rgba(0,0,0,.35));}
+    @keyframes floatUp{
+      0%{ transform: translateY(30px) scale(.8); opacity:0 }
+      10%{opacity:.95}
+      100%{ transform: translateY(-120vh) scale(1.35); opacity:0 }
+    }
+
+    .center{position:fixed; inset:0; display:grid; place-items:center; padding:18px;}
+    .card{
+      width:min(920px,94vw);
+      border-radius:28px;
+      padding:22px 18px 16px;
+      background:var(--glass);
+      border:1px solid var(--border);
+      backdrop-filter: blur(14px);
+      box-shadow: var(--shadow);
+      text-align:center;
+      position:relative;
+      overflow:hidden;
+    }
+    .glowline{
+      position:absolute; inset:-2px;
+      background: conic-gradient(from 180deg,
+        rgba(255,0,168,.0),
+        rgba(255,0,168,.65),
+        rgba(0,255,214,.65),
+        rgba(255,210,0,.65),
+        rgba(255,0,168,.65),
+        rgba(255,0,168,.0));
+      filter: blur(18px);
+      opacity:.65;
+      animation: spin 6s linear infinite;
+      pointer-events:none;
+    }
+    @keyframes spin{to{transform:rotate(360deg)}}
+
+    .title{font-weight:950;letter-spacing:.10em;text-transform:uppercase;font-size:clamp(28px,5.8vw,62px);margin:10px 0 6px;text-shadow:0 18px 50px rgba(0,0,0,.35);}
+    .subtitle{margin:0 auto 14px;width:min(760px,96%);font-size:clamp(14px,2.3vw,20px);line-height:1.6;color:rgba(255,255,255,.92);white-space:pre-line;}
+
+    .timer{
+      font-variant-numeric:tabular-nums;
+      font-size:clamp(40px,7vw,86px);
+      font-weight:980;
+      letter-spacing:.12em;
+      margin:6px 0 10px;
+      display:inline-block;
+      padding:10px 16px;
+      border-radius:18px;
+      background:rgba(0,0,0,.18);
+      border:1px solid rgba(255,255,255,.18);
+      text-shadow:0 18px 60px rgba(0,0,0,.45);
+    }
+    .timer.pulse{ animation: pulse 520ms ease-in-out infinite; }
+    @keyframes pulse{0%{transform:scale(1)}50%{transform:scale(1.12)}100%{transform:scale(1)}}
+
+    .bar{height:12px;border-radius:999px;overflow:hidden;width:min(760px,96%);margin:0 auto 10px;background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.16);}
+    .fill{height:100%;transform-origin:left;transform:scaleX(1);transition:transform .12s linear;
+      background:linear-gradient(90deg,rgba(255,0,168,.95),rgba(0,255,214,.80),rgba(255,210,0,.90));
+    }
+
+    .hint{color:var(--muted);font-size:13px;margin-top:6px;white-space:pre-line;}
+    .btns{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:14px;}
+    button{
+      border:1px solid rgba(255,255,255,.20);
+      background:rgba(255,255,255,.14);
+      color:var(--text);
+      padding:10px 14px;
+      border-radius:14px;
+      cursor:pointer;
+      font-weight:900;
+      letter-spacing:.02em;
+    }
+    button:hover{background:rgba(255,255,255,.18)}
+    #ytWrap{position:fixed;width:1px;height:1px;left:-10px;top:-10px;opacity:.001;pointer-events:none;z-index:-1}
+  </style>
+</head>
+
+<body>
+  <div class="bg" id="bg"></div>
+  <div class="hearts" id="hearts"></div>
+  <div id="ytWrap"><div id="ytPlayer"></div></div>
+
+  <div class="center">
+    <div class="card" id="card">
+      <div class="glowline"></div>
+      <div class="title">BEKLİYORUZ</div>
+      <div class="subtitle" id="text">Birazdan… 💞
+Kalbim seninle… 💖</div>
+      <div class="timer" id="timer">00:10</div>
+      <div class="bar"><div class="fill" id="fill"></div></div>
+      <div class="hint" id="hint">Başlat’a basınca sayaç çalışır ve YouTube müziği başlar 🎵</div>
+      <div class="btns">
+        <button id="start">Başlat 💖</button>
+        <button id="toggle">Müzik Aç/Kapat</button>
+        <button id="reset">Sıfırla</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    /***********************
+     * FOTO BASE64 BURAYA:
+     * - ham base64 veya data:image/png;base64,... şeklinde tam yazabilirsin
+     ************************/
+    const PHOTO_BASE64 = `YOUR_BASE64_HERE`;
+
+    // YouTube video ID
+    const YT_VIDEO_ID = "WUoT4qfxVVs";
+    const DURATION_SEC = 10;
+
+    // Base64 arkaplan uygula
+    const bgEl = document.getElementById("bg");
+    (function applyBase64Bg(){
+      let s = (PHOTO_BASE64 || "").trim();
+      if(!s || s === "YOUR_BASE64_HERE") return;
+      s = s.replace(/\s+/g, "");
+      const dataUrl = s.startsWith("data:image/") ? s : `data:image/jpeg;base64,${s}`;
+      bgEl.style.backgroundImage =
+        `radial-gradient(1200px 900px at 20% 25%, rgba(255,0,168,.22), rgba(0,0,0,0)),
+         radial-gradient(900px 700px at 80% 30%, rgba(0,255,214,.18), rgba(0,0,0,0)),
+         radial-gradient(900px 900px at 50% 85%, rgba(255,210,0,.18), rgba(0,0,0,0)),
+         linear-gradient(180deg, rgba(0,0,0,.18), rgba(0,0,0,.72)),
+         url("${dataUrl}")`;
+      bgEl.style.backgroundSize = "cover";
+      bgEl.style.backgroundPosition = "center";
+    })();
+
+    // YouTube (API geç yüklenirse tıklamayı kaybetme)
+    let ytPlayer=null, ytReady=false, ytPlaying=false, playRequested=false;
+
+    (function(){
+      const s=document.createElement("script");
+      s.src="https://www.youtube.com/iframe_api";
+      document.head.appendChild(s);
+    })();
+
+    window.onYouTubeIframeAPIReady = function(){
+      ytPlayer = new YT.Player("ytPlayer",{
+        height:"1", width:"1",
+        videoId: YT_VIDEO_ID,
+        playerVars:{autoplay:0, controls:0, disablekb:1, fs:0, rel:0, playsinline:1, modestbranding:1, iv_load_policy:3},
+        events:{
+          onReady: () => { ytReady=true; if(playRequested){ playRequested=false; ytPlay(12); } },
+          onStateChange: (e) => { ytPlaying = (e.data === 1); }
+        }
+      });
+    };
+
+    function ytSetVolume(v){ if(ytReady && ytPlayer) try{ ytPlayer.setVolume(v); }catch(e){} }
+    function ytPlay(vol=12){
+      if(!ytReady || !ytPlayer){ playRequested=true; return; }
+      try{ ytSetVolume(vol); ytPlayer.playVideo(); }catch(e){}
+    }
+    function ytPause(){ if(ytReady && ytPlayer) try{ ytPlayer.pauseVideo(); }catch(e){} }
+    function ytToggle(){ ytPlaying ? ytPause() : ytPlay(12); }
+    function rampVolume(from,to,ms){
+      if(!ytReady || !ytPlayer) return;
+      const steps=18, stepMs=Math.max(40, Math.floor(ms/steps));
+      let i=0; ytSetVolume(from);
+      const id=setInterval(()=>{
+        i++;
+        ytSetVolume(Math.round(from+(to-from)*(i/steps)));
+        if(i>=steps) clearInterval(id);
+      }, stepMs);
+    }
+
+    // Kalpler
+    const heartsEl=document.getElementById("hearts");
+    function spawnHeart(intense=false){
+      const el=document.createElement("div");
+      el.className="heart";
+      const hearts=["💖","💘","💝","💗","💓","💞","❤️"];
+      el.textContent=hearts[Math.floor(Math.random()*hearts.length)];
+      el.style.left=(Math.random()*100)+"vw";
+      el.style.bottom="-10px";
+      el.style.fontSize=(intense?26:18)+Math.random()*14+"px";
+      const dur=(intense?1400:2200)+Math.random()*1100;
+      el.style.animationDuration=dur+"ms";
+      heartsEl.appendChild(el);
+      setTimeout(()=>el.remove(), dur+200);
+    }
+    let heartTimer=null;
+    function startHearts(rateMs,intense=false){ stopHearts(); heartTimer=setInterval(()=>spawnHeart(intense), rateMs); }
+    function stopHearts(){ if(heartTimer){ clearInterval(heartTimer); heartTimer=null; } }
+
+    // Sayaç
+    const timerEl=document.getElementById("timer");
+    const textEl=document.getElementById("text");
+    const fillEl=document.getElementById("fill");
+    const hintEl=document.getElementById("hint");
+    const cardEl=document.getElementById("card");
+
+    let endTs=null, tickId=null, started=false;
+    function fmt(sec){
+      sec=Math.max(0, sec|0);
+      const mm=String(Math.floor(sec/60)).padStart(2,"0");
+      const ss=String(sec%60).padStart(2,"0");
+      return `${mm}:${ss}`;
+    }
+    function setTextByRemaining(r){
+      if(r>7) textEl.textContent="Birazdan… 💞";
+      else if(r>4) textEl.textContent="Hazır mısın? 💗";
+      else if(r>1) textEl.textContent="Geliyor… 💘";
+      else textEl.textContent="Şimdi! ❤️";
+    }
+    function update(){
+      const now=Date.now();
+      const rem=Math.ceil((endTs-now)/1000);
+      timerEl.textContent=fmt(rem);
+
+      const progress=Math.max(0, Math.min(1, (endTs-now)/(DURATION_SEC*1000)));
+      fillEl.style.transform=`scaleX(${progress})`;
+      setTextByRemaining(rem);
+
+      if(rem<=10 && rem>0){
+        timerEl.classList.add("pulse");
+        bgEl.classList.add("finale");
+        startHearts(120,true);
+      }
+
+      if(rem<=0){
+        clearInterval(tickId); tickId=null;
+        timerEl.classList.remove("pulse");
+        bgEl.classList.remove("finale");
+        stopHearts();
+
+        textEl.textContent="Sürprizim var… Seni seviyorum 💖";
+        hintEl.textContent="🎉 Süre bitti! Müzik yükseliyor…";
+        ytPlay(20); rampVolume(20,85,1400);
+
+        let burst=0;
+        const b=setInterval(()=>{
+          burst++; spawnHeart(true); spawnHeart(true);
+          if(burst>40) clearInterval(b);
+        }, 60);
+
+        cardEl.animate([{transform:"translateY(0)"},{transform:"translateY(-6px)"},{transform:"translateY(0)"}],{duration:600,iterations:6});
+      }
+    }
+    function start(){
+      if(started) return;
+      started=true;
+      endTs=Date.now()+DURATION_SEC*1000;
+      hintEl.textContent="⏳ Başladı…";
+      ytPlay(12);
+      startHearts(260,false);
+      update();
+      tickId=setInterval(update, 90);
+    }
+    function reset(){
+      started=false;
+      if(tickId){ clearInterval(tickId); tickId=null; }
+      stopHearts();
+      timerEl.classList.remove("pulse");
+      bgEl.classList.remove("finale");
+      timerEl.textContent=fmt(DURATION_SEC);
+      fillEl.style.transform="scaleX(1)";
+      textEl.textContent="Birazdan… 💞
+Kalbim seninle… 💖";
+      hintEl.textContent="Başlat’a basınca sayaç çalışır ve YouTube müziği başlar 🎵";
+      ytPause(); ytSetVolume(12);
+    }
+
+    document.getElementById("start").addEventListener("click", start);
+    document.getElementById("toggle").addEventListener("click", ytToggle);
+    document.getElementById("reset").addEventListener("click", reset);
+    reset();
+  </script>
+</body>
+</html>
